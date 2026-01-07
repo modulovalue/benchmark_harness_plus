@@ -99,7 +99,7 @@ class BenchmarkResult {
   /// final speedup = optimized.speedupVs(baseline);
   /// print('Optimized is ${speedup.toStringAsFixed(2)}x faster');
   /// ```
-  double speedupVs(BenchmarkResult baseline) {
+  double speedupVs(final BenchmarkResult baseline) {
     return baseline.median / median;
   }
 
@@ -113,7 +113,7 @@ class BenchmarkResult {
   /// final improvement = optimized.improvementVs(baseline);
   /// print('Optimized is ${improvement.toStringAsFixed(1)}% faster');
   /// ```
-  double improvementVs(BenchmarkResult baseline) {
+  double improvementVs(final BenchmarkResult baseline) {
     return ((baseline.median - median) / baseline.median) * 100;
   }
 

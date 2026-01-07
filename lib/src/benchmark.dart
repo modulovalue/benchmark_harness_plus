@@ -113,8 +113,8 @@ class Benchmark {
   /// test frameworks.
   ///
   /// Returns a list of [BenchmarkResult] in the same order as [variants].
-  List<BenchmarkResult> run({BenchmarkLogger? log}) {
-    final logger = log ?? ((_) {});
+  List<BenchmarkResult> run({final BenchmarkLogger? log}) {
+    final logger = log ?? ((final _) {});
     final random = math.Random();
     final results = <String, List<double>>{};
 
@@ -135,7 +135,7 @@ class Benchmark {
     logger('[$title] Collecting ${config.samples} sample(s)...');
     for (var sample = 0; sample < config.samples; sample++) {
       // Optionally randomize order to reduce systematic bias
-      final order = List<int>.generate(variants.length, (i) => i);
+      final order = List<int>.generate(variants.length, (final i) => i);
       if (config.randomizeOrder) {
         order.shuffle(random);
       }
@@ -159,7 +159,7 @@ class Benchmark {
     logger('[$title] Done.');
 
     return variants
-        .map((v) => BenchmarkResult(name: v.name, samples: results[v.name]!))
+        .map((final v) => BenchmarkResult(name: v.name, samples: results[v.name]!))
         .toList();
   }
 

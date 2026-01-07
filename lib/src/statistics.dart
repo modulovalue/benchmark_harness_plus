@@ -22,9 +22,9 @@ import 'dart:math' as math;
 /// ```dart
 /// final avg = mean([1.0, 2.0, 3.0, 4.0, 5.0]); // 3.0
 /// ```
-double mean(List<double> samples) {
+double mean(final List<double> samples) {
   if (samples.isEmpty) return 0;
-  return samples.reduce((a, b) => a + b) / samples.length;
+  return samples.reduce((final a, final b) => a + b) / samples.length;
 }
 
 /// Calculates the median (middle value) of a list of samples.
@@ -42,7 +42,7 @@ double mean(List<double> samples) {
 /// ```dart
 /// final mid = median([1.0, 2.0, 100.0]); // 2.0 (ignores the outlier)
 /// ```
-double median(List<double> samples) {
+double median(final List<double> samples) {
   if (samples.isEmpty) return 0;
   final sorted = List<double>.from(samples)..sort();
   final mid = sorted.length ~/ 2;
@@ -69,12 +69,12 @@ double median(List<double> samples) {
 /// final sd = stdDev([10.0, 10.1, 9.9, 10.0]); // ~0.08 (very stable)
 /// final sd2 = stdDev([5.0, 15.0, 25.0, 35.0]); // ~12.9 (high variance)
 /// ```
-double stdDev(List<double> samples) {
+double stdDev(final List<double> samples) {
   if (samples.length < 2) return 0;
   final m = mean(samples);
   final variance = samples
-          .map((s) => math.pow(s - m, 2))
-          .reduce((a, b) => a + b) /
+          .map((final s) => math.pow(s - m, 2))
+          .reduce((final a, final b) => a + b) /
       (samples.length - 1);
   return math.sqrt(variance);
 }
@@ -100,7 +100,7 @@ double stdDev(List<double> samples) {
 /// final reliability = cv([10.0, 10.1, 9.9, 10.0]); // ~0.8% (excellent)
 /// final reliability2 = cv([5.0, 15.0, 25.0]); // ~66% (unreliable)
 /// ```
-double cv(List<double> samples) {
+double cv(final List<double> samples) {
   final m = mean(samples);
   return m > 0 ? (stdDev(samples) / m) * 100 : 0;
 }
@@ -111,8 +111,8 @@ double cv(List<double> samples) {
 /// is often less meaningful than median for benchmark analysis.
 ///
 /// Throws [StateError] if [samples] is empty.
-double min(List<double> samples) {
-  return samples.reduce((a, b) => a < b ? a : b);
+double min(final List<double> samples) {
+  return samples.reduce((final a, final b) => a < b ? a : b);
 }
 
 /// Returns the maximum value in [samples].
@@ -121,8 +121,8 @@ double min(List<double> samples) {
 /// expected in benchmark data due to GC, OS scheduling, etc.
 ///
 /// Throws [StateError] if [samples] is empty.
-double max(List<double> samples) {
-  return samples.reduce((a, b) => a > b ? a : b);
+double max(final List<double> samples) {
+  return samples.reduce((final a, final b) => a > b ? a : b);
 }
 
 /// Describes the reliability level of a measurement based on its CV%.
@@ -143,7 +143,7 @@ enum ReliabilityLevel {
 /// Determines the reliability level based on coefficient of variation.
 ///
 /// See [ReliabilityLevel] for threshold descriptions.
-ReliabilityLevel reliabilityFromCV(double cvPercent) {
+ReliabilityLevel reliabilityFromCV(final double cvPercent) {
   if (cvPercent < 10) return ReliabilityLevel.excellent;
   if (cvPercent < 20) return ReliabilityLevel.good;
   if (cvPercent < 50) return ReliabilityLevel.moderate;

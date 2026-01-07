@@ -220,9 +220,9 @@ void main() {
       benchmark.run(log: logs.add);
 
       expect(logs, isNotEmpty);
-      expect(logs.any((l) => l.contains('Warming up')), isTrue);
-      expect(logs.any((l) => l.contains('Collecting')), isTrue);
-      expect(logs.any((l) => l.contains('Done')), isTrue);
+      expect(logs.any((final l) => l.contains('Warming up')), isTrue);
+      expect(logs.any((final l) => l.contains('Collecting')), isTrue);
+      expect(logs.any((final l) => l.contains('Done')), isTrue);
     });
 
     test('results have positive timing values', () {
@@ -249,7 +249,7 @@ void main() {
       final results = benchmark.run();
 
       expect(results[0].median, greaterThan(0.0));
-      expect(results[0].samples.every((s) => s > 0), isTrue);
+      expect(results[0].samples.every((final s) => s > 0), isTrue);
     });
 
     test('toString includes title and variant count', () {

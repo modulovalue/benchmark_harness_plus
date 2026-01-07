@@ -71,9 +71,9 @@ Output:
 [MyBenchmark] Collecting 10 sample(s)...
 [MyBenchmark] Done.
 
-  Variant |     median |       mean |   stddev |    cv% |  vs base
-  ----------------------------------------------------------------
-  default |    1234.56 |    1240.23 |    15.32 |    1.2 |        -
+  Variant |     median |       mean |    fastest |   stddev |    cv% |  vs base
+  ---------------------------------------------------------------------------
+  default |    1234.56 |    1240.23 |    1220.15 |    15.32 |    1.2 |        -
 
   (times in microseconds per operation)
 ```
@@ -359,10 +359,10 @@ benchmark_harness_plus median: 5.0 us  (accurate)
 **After:** CV% tells you exactly how reliable the measurement is.
 
 ```
-  Variant |     median |   cv% |
-  -----------------------------
-  fast-op |       0.08 |  75.0 |  <- CV% > 50%: unreliable!
-  slow-op |      15.23 |   3.2 |  <- CV% < 10%: excellent
+  Variant |     median |       mean |    fastest |   stddev |   cv% |
+  ------------------------------------------------------------------
+  fast-op |       0.08 |       0.12 |       0.03 |     0.09 |  75.0 |  <- CV% > 50%: unreliable!
+  slow-op |      15.23 |      15.30 |      15.10 |     0.49 |   3.2 |  <- CV% < 10%: excellent
 ```
 
 ### 3. Built-in Comparison
@@ -372,10 +372,10 @@ benchmark_harness_plus median: 5.0 us  (accurate)
 **After:** Automatic side-by-side comparison with speedup ratios.
 
 ```
-  Variant      |     median |  vs base
-  ------------------------------------
-  baseline     |      34.39 |        -
-  optimized    |      24.15 |    1.42x  <- 42% faster
+  Variant      |     median |       mean |    fastest |   stddev |    cv% |  vs base
+  --------------------------------------------------------------------------------
+  baseline     |      34.39 |      34.30 |      34.01 |     0.25 |    0.7 |        -
+  optimized    |      24.15 |      24.22 |      23.89 |     0.18 |    0.7 |    1.42x  <- 42% faster
 ```
 
 ### 4. Multiple Samples

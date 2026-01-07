@@ -222,11 +222,11 @@ Here is a complete example output with annotations:
 [List Building] Collecting 10 sample(s)...
 [List Building] Done.
 
-  Variant      |     median |       mean |   stddev |    cv% |  vs base
-  -------------------------------------------------------------------
-  growable     |       1.24 |       1.31 |     0.15 |   11.5 |        -
-  fixed-length |       0.52 |       0.53 |     0.02 |    3.8 |    2.38x
-  generate     |       0.89 |       0.91 |     0.04 |    4.4 |    1.39x
+  Variant      |     median |       mean |    fastest |   stddev |    cv% |  vs base
+  --------------------------------------------------------------------------------
+  growable     |       1.24 |       1.31 |       1.05 |     0.15 |   11.5 |        -
+  fixed-length |       0.52 |       0.53 |       0.50 |     0.02 |    3.8 |    2.38x
+  generate     |       0.89 |       0.91 |       0.85 |     0.04 |    4.4 |    1.39x
 
   (times in microseconds per operation)
 ```
@@ -255,10 +255,12 @@ Here is a complete example output with annotations:
 If you see high CV% values:
 
 ```
-  Variant      |     median |       mean |   stddev |    cv% |  vs base
-  -------------------------------------------------------------------
-  approach-a   |       0.08 |       0.12 |     0.09 |   75.0 |        -
-  approach-b   |       0.06 |       0.09 |     0.07 |   77.8 |    1.33x
+  Variant      |     median |       mean |    fastest |   stddev |    cv% |  vs base
+  --------------------------------------------------------------------------------
+  approach-a   |       0.08 |       0.12 |       0.03 |     0.09 |   75.0 |        -
+  approach-b   |       0.06 |       0.09 |       0.02 |     0.07 |   77.8 |    1.33x
+
+  (times in microseconds per operation)
 
 Note: The following measurements have CV% > 50% and may be unreliable:
   - approach-a (CV: 75.0%)

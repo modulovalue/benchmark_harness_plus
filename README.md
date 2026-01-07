@@ -63,10 +63,10 @@ Output:
 [String Operations] Collecting 10 sample(s)...
 [String Operations] Done.
 
-  Variant        |     median |       mean |   stddev |    cv% |  vs base
-  -----------------------------------------------------------------------
-  concat         |       0.42 |       0.43 |     0.02 |    4.7 |        -
-  interpolation  |       0.38 |       0.39 |     0.01 |    3.2 |    1.11x
+  Variant        |     median |       mean |    fastest |   stddev |    cv% |  vs base
+  ------------------------------------------------------------------------------------
+  concat         |       0.42 |       0.43 |       0.40 |     0.02 |    4.7 |        -
+  interpolation  |       0.38 |       0.39 |       0.36 |     0.01 |    3.2 |    1.11x
 
   (times in microseconds per operation)
 ```

@@ -19,22 +19,27 @@ import 'statistics.dart';
 ///
 /// Example output:
 /// ```
-/// Variant        |     median |       mean |   stddev |    cv% |  vs base
-/// -----------------------------------------------------------------------
-/// baseline       |      34.39 |      34.30 |     0.25 |    0.7 |        -
-/// optimized      |      24.15 |      24.22 |     0.18 |    0.7 |    1.42x
+/// Variant        |     median |       mean |    fastest |   stddev |    cv% |  vs base
+/// ------------------------------------------------------------------------------------
+/// baseline       |      34.39 |      34.30 |      34.01 |     0.25 |    0.7 |        -
+/// optimized      |      24.15 |      24.22 |      23.89 |     0.18 |    0.7 |    1.42x
+///
+/// (times in microseconds per operation)
 /// ```
-String formatResults(List<BenchmarkResult> results, {String? baselineName}) {
+String formatResults(
+  final List<BenchmarkResult> results, {
+  final String? baselineName,
+}) {
   if (results.isEmpty) return '(no results)';
 
   final baseline = baselineName != null
       ? results.firstWhere(
-          (r) => r.name == baselineName,
+          (final r) => r.name == baselineName,
           orElse: () => results.first,
         )
       : results.first;
 
-  final nameWidth = results.map((r) => r.name.length).reduce(math.max);
+  final nameWidth = results.map((final r) => r.name.length).reduce(math.max);
   final buffer = StringBuffer();
 
   // Header
@@ -43,11 +48,12 @@ String formatResults(List<BenchmarkResult> results, {String? baselineName}) {
     '  ${'Variant'.padRight(nameWidth)} | '
     '${'median'.padLeft(10)} | '
     '${'mean'.padLeft(10)} | '
+    '${'fastest'.padLeft(10)} | '
     '${'stddev'.padLeft(8)} | '
     '${'cv%'.padLeft(6)} | '
     '${'vs base'.padLeft(8)}',
   );
-  buffer.writeln('  ${'-' * (nameWidth + 55)}');
+  buffer.writeln('  ${'-' * (nameWidth + 68)}');
 
   // Rows
   for (final r in results) {
@@ -58,6 +64,7 @@ String formatResults(List<BenchmarkResult> results, {String? baselineName}) {
       '  ${r.name.padRight(nameWidth)} | '
       '${r.median.toStringAsFixed(2).padLeft(10)} | '
       '${r.mean.toStringAsFixed(2).padLeft(10)} | '
+      '${r.min.toStringAsFixed(2).padLeft(10)} | '
       '${r.stdDev.toStringAsFixed(2).padLeft(8)} | '
       '${r.cv.toStringAsFixed(1).padLeft(6)} | '
       '${ratioStr.padLeft(8)}',
@@ -82,7 +89,10 @@ String formatResults(List<BenchmarkResult> results, {String? baselineName}) {
 /// final results = benchmark.run(log: print);
 /// printResults(results, baselineName: 'baseline');
 /// ```
-void printResults(List<BenchmarkResult> results, {String? baselineName}) {
+void printResults(
+  final List<BenchmarkResult> results, {
+  final String? baselineName,
+}) {
   print(formatResults(results, baselineName: baselineName));
 }
 
@@ -97,18 +107,20 @@ void printResults(List<BenchmarkResult> results, {String? baselineName}) {
 ///   Samples: 10
 ///   Median:  24.15 us/op
 ///   Mean:    24.22 us/op
+///   Fastest: 23.89 us/op
 ///   Stddev:  0.18 us
 ///   CV%:     0.7%
 ///   Range:   23.89 - 24.61 us
 ///   Reliability: excellent
 /// ```
-String formatDetailedResult(BenchmarkResult result) {
+String formatDetailedResult(final BenchmarkResult result) {
   final buffer = StringBuffer();
 
   buffer.writeln('Result: ${result.name}');
   buffer.writeln('  Samples: ${result.samples.length}');
   buffer.writeln('  Median:  ${result.median.toStringAsFixed(2)} us/op');
   buffer.writeln('  Mean:    ${result.mean.toStringAsFixed(2)} us/op');
+  buffer.writeln('  Fastest: ${result.min.toStringAsFixed(2)} us/op');
   buffer.writeln('  Stddev:  ${result.stdDev.toStringAsFixed(2)} us');
   buffer.writeln('  CV%:     ${result.cv.toStringAsFixed(1)}%');
   buffer.writeln(
@@ -142,7 +154,7 @@ String formatDetailedResult(BenchmarkResult result) {
 ///   Improvement: 29.7%
 ///   Reliable:    yes
 /// ```
-String formatComparison(BenchmarkComparison comparison) {
+String formatComparison(final BenchmarkComparison comparison) {
   final buffer = StringBuffer();
 
   buffer.writeln(
@@ -185,12 +197,12 @@ String formatComparison(BenchmarkComparison comparison) {
 /// final csv = formatResultsAsCsv(results);
 /// File('results.csv').writeAsStringSync(csv);
 /// ```
-String formatResultsAsCsv(List<BenchmarkResult> results) {
+String formatResultsAsCsv(final List<BenchmarkResult> results) {
   final buffer = StringBuffer();
 
   // Find max samples for header
   final maxSamples =
-      results.map((r) => r.samples.length).reduce(math.max);
+      results.map((final r) => r.samples.length).reduce(math.max);
 
   // Header
   buffer.write('name,median,mean,stddev,cv,min,max');
@@ -220,9 +232,9 @@ String formatResultsAsCsv(List<BenchmarkResult> results) {
 /// Prints a reliability warning if any result has poor reliability.
 ///
 /// Returns true if a warning was printed.
-bool printReliabilityWarning(List<BenchmarkResult> results) {
+bool printReliabilityWarning(final List<BenchmarkResult> results) {
   final poorResults = results.where(
-    (r) => r.reliability == ReliabilityLevel.poor,
+    (final r) => r.reliability == ReliabilityLevel.poor,
   );
 
   if (poorResults.isNotEmpty) {
@@ -236,7 +248,7 @@ bool printReliabilityWarning(List<BenchmarkResult> results) {
   }
 
   final moderateResults = results.where(
-    (r) => r.reliability == ReliabilityLevel.moderate,
+    (final r) => r.reliability == ReliabilityLevel.moderate,
   );
 
   if (moderateResults.isNotEmpty) {

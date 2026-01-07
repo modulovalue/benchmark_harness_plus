@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Added "fastest" column to table output showing the minimum (best) sample time
+- Added "Fastest" line to detailed result output
+- Added new example demonstrating when minimum vs median should be used
+- Restructured examples into separate files for easier reference
+
 ## 1.0.0
 
 - Initial release
