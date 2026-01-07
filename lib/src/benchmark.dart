@@ -52,13 +52,11 @@ typedef BenchmarkLogger = void Function(String message);
 ///
 /// The benchmark process:
 /// 1. **Warmup**: Each variant runs [BenchmarkConfig.warmupIterations] times
-///    to trigger JIT compilation and cache warming. A GC is triggered
-///    between variants.
+///    to trigger JIT compilation and cache warming.
 /// 2. **Sampling**: For each of [BenchmarkConfig.samples] samples:
 ///    - Variants are optionally shuffled to reduce ordering bias
 ///    - Each variant runs [BenchmarkConfig.iterations] times
 ///    - The time per operation is recorded
-///    - GC is triggered between variants
 ///
 /// Example:
 /// ```dart
@@ -128,7 +126,6 @@ class Benchmark {
       for (var i = 0; i < config.warmupIterations; i++) {
         v.run();
       }
-      _triggerGC();
     }
 
     // Sampling phase
@@ -142,7 +139,6 @@ class Benchmark {
 
       for (final idx in order) {
         final v = variants[idx];
-        _triggerGC();
 
         // Measure iterations
         final sw = Stopwatch()..start();
@@ -161,16 +157,6 @@ class Benchmark {
     return variants
         .map((final v) => BenchmarkResult(name: v.name, samples: results[v.name]!))
         .toList();
-  }
-
-  /// Attempts to trigger garbage collection.
-  ///
-  /// Allocates and discards memory to encourage the GC to run,
-  /// reducing GC interference during measurements.
-  void _triggerGC() {
-    // Allocate and discard to encourage GC
-    // ignore: unused_local_variable
-    final _ = List.filled(10000, Object());
   }
 
   @override

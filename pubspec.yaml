@@ -3,7 +3,7 @@ description: >-
   A statistically rigorous benchmarking harness for Dart. Provides median-based
   comparisons, coefficient of variation, proper warmup phases, and outlier-resistant
   measurements for reliable performance analysis.
-version: 1.1.0
+version: 1.2.0
 repository: https://github.com/modulovalue/benchmark_harness_plus
 
 environment:

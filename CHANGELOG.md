@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Removed GC triggering between variants (can cause more noise than it reduces)
+
 ## 1.1.0
 
 - Added "fastest" column to table output showing the minimum (best) sample time
@@ -12,6 +16,6 @@
 - BenchmarkConfig with quick, standard, and thorough presets
 - BenchmarkResult with computed statistics and reliability assessment
 - BenchmarkComparison for comparing variants
-- Benchmark harness with warmup, randomized ordering, and GC triggering
+- Benchmark harness with warmup and randomized ordering
 - Result formatting: table, detailed, and CSV export
 - Comprehensive documentation and examples

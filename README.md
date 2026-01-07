@@ -169,7 +169,6 @@ print('Reliability: ${reliabilityFromCV(cv(samples))}');
 
 - **Sub-microsecond measurements**: Inherently noisy, expect CV% > 50%
 - **First run bias**: Always warm up before measuring
-- **GC interference**: The harness triggers GC between variants to reduce impact
 - **Order effects**: Randomize variant order across samples (enabled by default)
 - **Single sample**: Never trust a single measurement
 

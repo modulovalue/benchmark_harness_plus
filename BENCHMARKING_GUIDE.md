@@ -41,9 +41,8 @@ Warmup results are discarded entirely.
 The benchmark collects multiple independent samples (default: 10). Each sample:
 
 1. Optionally shuffles variant order (reduces systematic bias)
-2. Triggers GC between variants (reduces GC interference)
-3. Runs each variant many times (default: 1000 iterations)
-4. Records the average time per operation
+2. Runs each variant many times (default: 1000 iterations)
+3. Records the average time per operation
 
 ### Phase 3: Statistical Analysis
 
