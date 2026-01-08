@@ -136,9 +136,7 @@ String formatDetailedResult(final BenchmarkResult result) {
         '  Note: mean > median suggests high outliers (normal for benchmarks)',
       );
     } else {
-      buffer.writeln(
-        '  Note: mean < median suggests low outliers (unusual)',
-      );
+      buffer.writeln('  Note: mean < median suggests low outliers (unusual)');
     }
   }
 
@@ -201,8 +199,9 @@ String formatResultsAsCsv(final List<BenchmarkResult> results) {
   final buffer = StringBuffer();
 
   // Find max samples for header
-  final maxSamples =
-      results.map((final r) => r.samples.length).reduce(math.max);
+  final maxSamples = results
+      .map((final r) => r.samples.length)
+      .reduce(math.max);
 
   // Header
   buffer.write('name,median,mean,stddev,cv,min,max');
@@ -238,8 +237,10 @@ bool printReliabilityWarning(final List<BenchmarkResult> results) {
   );
 
   if (poorResults.isNotEmpty) {
-    print('\nWarning: The following measurements have CV% > 50% '
-        'and may be unreliable:');
+    print(
+      '\nWarning: The following measurements have CV% > 50% '
+      'and may be unreliable:',
+    );
     for (final r in poorResults) {
       print('  - ${r.name} (CV: ${r.cv.toStringAsFixed(1)}%)');
     }
@@ -252,8 +253,10 @@ bool printReliabilityWarning(final List<BenchmarkResult> results) {
   );
 
   if (moderateResults.isNotEmpty) {
-    print('\nNote: The following measurements have CV% 20-50% '
-        '(directional only):');
+    print(
+      '\nNote: The following measurements have CV% 20-50% '
+      '(directional only):',
+    );
     for (final r in moderateResults) {
       print('  - ${r.name} (CV: ${r.cv.toStringAsFixed(1)}%)');
     }

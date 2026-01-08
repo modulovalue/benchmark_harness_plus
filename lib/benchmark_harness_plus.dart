@@ -73,9 +73,9 @@
 /// - Always warm up before measuring
 /// - Report CV% alongside results
 /// - Re-run when results seem surprising
-library benchmark_harness_plus;
+library;
 
-export 'src/benchmark.dart' show Benchmark, BenchmarkVariant, BenchmarkLogger;
+export 'src/benchmark.dart' show Benchmark, BenchmarkLogger, BenchmarkVariant;
 export 'src/config.dart' show BenchmarkConfig;
 export 'src/printer.dart'
     show
@@ -87,4 +87,12 @@ export 'src/printer.dart'
         printResults;
 export 'src/result.dart' show BenchmarkComparison, BenchmarkResult;
 export 'src/statistics.dart'
-    show ReliabilityLevel, cv, max, mean, median, min, reliabilityFromCV, stdDev;
+    show
+        ReliabilityLevel,
+        cv,
+        max,
+        mean,
+        median,
+        min,
+        reliabilityFromCV,
+        stdDev;

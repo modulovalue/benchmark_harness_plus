@@ -33,10 +33,7 @@ class BenchmarkVariant {
   final void Function() run;
 
   /// Creates a benchmark variant.
-  const BenchmarkVariant({
-    required this.name,
-    required this.run,
-  });
+  const BenchmarkVariant({required this.name, required this.run});
 
   @override
   String toString() => 'BenchmarkVariant($name)';
@@ -155,7 +152,9 @@ class Benchmark {
     logger('[$title] Done.');
 
     return variants
-        .map((final v) => BenchmarkResult(name: v.name, samples: results[v.name]!))
+        .map(
+          (final v) => BenchmarkResult(name: v.name, samples: results[v.name]!),
+        )
         .toList();
   }
 

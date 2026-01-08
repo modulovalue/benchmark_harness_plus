@@ -72,7 +72,8 @@ double median(final List<double> samples) {
 double stdDev(final List<double> samples) {
   if (samples.length < 2) return 0;
   final m = mean(samples);
-  final variance = samples
+  final variance =
+      samples
           .map((final s) => math.pow(s - m, 2))
           .reduce((final a, final b) => a + b) /
       (samples.length - 1);

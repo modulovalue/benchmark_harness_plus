@@ -1,3 +1,7 @@
+## 1.2.1-wip
+
+- Required `sdk: ^3.9.0`
+
 ## 1.2.0
 
 - Removed GC triggering between variants (can cause more noise than it reduces)

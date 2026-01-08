@@ -12,13 +12,25 @@ void main() {
     });
 
     test('quick preset has fewer iterations', () {
-      expect(BenchmarkConfig.quick.iterations, lessThan(BenchmarkConfig.standard.iterations));
-      expect(BenchmarkConfig.quick.samples, lessThan(BenchmarkConfig.standard.samples));
+      expect(
+        BenchmarkConfig.quick.iterations,
+        lessThan(BenchmarkConfig.standard.iterations),
+      );
+      expect(
+        BenchmarkConfig.quick.samples,
+        lessThan(BenchmarkConfig.standard.samples),
+      );
     });
 
     test('thorough preset has more iterations', () {
-      expect(BenchmarkConfig.thorough.iterations, greaterThan(BenchmarkConfig.standard.iterations));
-      expect(BenchmarkConfig.thorough.samples, greaterThan(BenchmarkConfig.standard.samples));
+      expect(
+        BenchmarkConfig.thorough.iterations,
+        greaterThan(BenchmarkConfig.standard.iterations),
+      );
+      expect(
+        BenchmarkConfig.thorough.samples,
+        greaterThan(BenchmarkConfig.standard.samples),
+      );
     });
 
     test('custom config accepts parameters', () {
@@ -90,7 +102,10 @@ void main() {
     });
 
     test('improvementVs calculates percentage correctly', () {
-      final baseline = BenchmarkResult(name: 'baseline', samples: [100.0, 100.0]);
+      final baseline = BenchmarkResult(
+        name: 'baseline',
+        samples: [100.0, 100.0],
+      );
       final improved = BenchmarkResult(name: 'improved', samples: [50.0, 50.0]);
 
       expect(improved.improvementVs(baseline), equals(50.0)); // 50% faster
@@ -129,12 +144,18 @@ void main() {
     });
 
     test('calculates speedup', () {
-      final comparison = BenchmarkComparison(baseline: baselineResult, test: testResult);
+      final comparison = BenchmarkComparison(
+        baseline: baselineResult,
+        test: testResult,
+      );
       expect(comparison.speedup, equals(2.0));
     });
 
     test('calculates improvement percentage', () {
-      final comparison = BenchmarkComparison(baseline: baselineResult, test: testResult);
+      final comparison = BenchmarkComparison(
+        baseline: baselineResult,
+        test: testResult,
+      );
       expect(comparison.improvementPercent, equals(50.0));
     });
 
@@ -163,7 +184,10 @@ void main() {
     });
 
     test('toString describes the comparison', () {
-      final comparison = BenchmarkComparison(baseline: baselineResult, test: testResult);
+      final comparison = BenchmarkComparison(
+        baseline: baselineResult,
+        test: testResult,
+      );
       final str = comparison.toString();
       expect(str, contains('test'));
       expect(str, contains('baseline'));
@@ -236,6 +260,7 @@ void main() {
               for (var i = 0; i < 100; i++) {
                 sum += i;
               }
+              expect(sum, 4950);
             },
           ),
         ],

@@ -1,3 +1,7 @@
+/// @docImport 'config.dart';
+/// @docImport 'statistics.dart';
+library;
+
 import 'statistics.dart' as stats;
 
 /// Results from benchmarking a single variant.
@@ -27,10 +31,7 @@ class BenchmarkResult {
   final List<double> samples;
 
   /// Creates a benchmark result.
-  BenchmarkResult({
-    required this.name,
-    required this.samples,
-  });
+  BenchmarkResult({required this.name, required this.samples});
 
   /// The arithmetic mean (average) of all samples in microseconds.
   ///
@@ -118,7 +119,8 @@ class BenchmarkResult {
   }
 
   @override
-  String toString() => 'BenchmarkResult($name: '
+  String toString() =>
+      'BenchmarkResult($name: '
       'median=${median.toStringAsFixed(2)}us, '
       'cv=${cv.toStringAsFixed(1)}%)';
 }
@@ -135,10 +137,7 @@ class BenchmarkComparison {
   final BenchmarkResult test;
 
   /// Creates a comparison between two results.
-  BenchmarkComparison({
-    required this.baseline,
-    required this.test,
-  });
+  BenchmarkComparison({required this.baseline, required this.test});
 
   /// Speedup ratio (baseline.median / test.median).
   ///

@@ -119,7 +119,8 @@ class BenchmarkConfig {
   );
 
   @override
-  String toString() => 'BenchmarkConfig('
+  String toString() =>
+      'BenchmarkConfig('
       'iterations: $iterations, '
       'samples: $samples, '
       'warmupIterations: $warmupIterations, '

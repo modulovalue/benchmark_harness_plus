@@ -62,8 +62,12 @@ void main() {
   print('  The minimum of A represents a fast path that only triggers 10%');
   print('  of the time. In production, users experience the slow path.');
   print('');
-  print('  The high CV% of A (${cv(algorithmASamples).toStringAsFixed(0)}%) signals inherent variance.');
-  print('  The low CV% of B (${cv(algorithmBSamples).toStringAsFixed(0)}%) confirms consistent behavior.');
+  print(
+    '  The high CV% of A (${cv(algorithmASamples).toStringAsFixed(0)}%) signals inherent variance.',
+  );
+  print(
+    '  The low CV% of B (${cv(algorithmBSamples).toStringAsFixed(0)}%) confirms consistent behavior.',
+  );
   print('');
 
   print('When to use minimum vs median:');
@@ -92,7 +96,18 @@ void main() {
 
   // Search positions that will be cycled through
   // This creates inherent variance: early positions are fast, late positions are slow
-  final searchPositions = [0, 100, 500, 1000, 2500, 5000, 7500, 9000, 9500, 9999];
+  final searchPositions = [
+    0,
+    100,
+    500,
+    1000,
+    2500,
+    5000,
+    7500,
+    9000,
+    9500,
+    9999,
+  ];
   var searchIndex = 0;
 
   final benchmark = Benchmark(
