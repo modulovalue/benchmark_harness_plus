@@ -1,8 +1,7 @@
 name: benchmark_harness_plus
 description: >-
-  A statistically rigorous benchmarking harness for Dart. Provides median-based
-  comparisons, coefficient of variation, proper warmup phases, and outlier-resistant
-  measurements for reliable performance analysis.
+  A statistically rigorous benchmarking harness with median-based comparisons,
+  CV% reliability metrics, and outlier-resistant measurements.
 version: 3.0.0
 repository: https://github.com/modulovalue/benchmark_harness_plus
 
