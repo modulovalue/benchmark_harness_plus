@@ -71,7 +71,7 @@ Output:
   (times in microseconds per operation)
 ```
 
-## Configuration00
+## Configuration
 
 Use predefined configurations or create custom ones:
 
