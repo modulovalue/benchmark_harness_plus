@@ -22,8 +22,8 @@ class BenchmarkResult {
   /// All collected sample measurements in microseconds per operation.
   ///
   /// Each sample represents the average time for one operation during
-  /// that sampling period. The number of samples equals
-  /// [BenchmarkConfig.samples].
+  /// that sampling period. The number of samples is configured via
+  /// the benchmark configuration.
   final List<double> samples;
 
   /// Creates a benchmark result.
@@ -84,7 +84,7 @@ class BenchmarkResult {
   /// The reliability level based on coefficient of variation.
   ///
   /// Provides a quick assessment of how trustworthy this measurement is.
-  /// See [ReliabilityLevel] for detailed descriptions.
+  /// See [stats.ReliabilityLevel] for detailed descriptions.
   stats.ReliabilityLevel get reliability => stats.reliabilityFromCV(cv);
 
   /// Calculates the speedup ratio compared to a baseline result.

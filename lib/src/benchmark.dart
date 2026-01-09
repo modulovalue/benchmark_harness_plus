@@ -155,7 +155,8 @@ class Benchmark {
     logger('[$title] Done.');
 
     return variants
-        .map((final v) => BenchmarkResult(name: v.name, samples: results[v.name]!))
+        .map((final v) =>
+            BenchmarkResult(name: v.name, samples: results[v.name]!))
         .toList();
   }
 

@@ -87,4 +87,12 @@ export 'src/printer.dart'
         printResults;
 export 'src/result.dart' show BenchmarkComparison, BenchmarkResult;
 export 'src/statistics.dart'
-    show ReliabilityLevel, cv, max, mean, median, min, reliabilityFromCV, stdDev;
+    show
+        ReliabilityLevel,
+        cv,
+        max,
+        mean,
+        median,
+        min,
+        reliabilityFromCV,
+        stdDev;

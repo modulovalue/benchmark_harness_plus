@@ -22,8 +22,10 @@ void main() {
   print('Mean:   ${mean(samplesWithOutliers).toStringAsFixed(2)} us');
   print('Median: ${median(samplesWithOutliers).toStringAsFixed(2)} us');
   print('');
-  print('The mean (${mean(samplesWithOutliers).toStringAsFixed(2)}) is skewed by the outlier.');
-  print('The median (${median(samplesWithOutliers).toStringAsFixed(2)}) accurately represents typical performance.');
+  print(
+      'The mean (${mean(samplesWithOutliers).toStringAsFixed(2)}) is skewed by the outlier.');
+  print(
+      'The median (${median(samplesWithOutliers).toStringAsFixed(2)}) accurately represents typical performance.');
   print('');
   print('This is why benchmark_harness_plus uses median for comparisons!');
 }
