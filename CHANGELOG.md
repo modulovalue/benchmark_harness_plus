@@ -1,3 +1,18 @@
+## 3.0.0
+
+- **Breaking:** Added `Percentage` type for type-safe percentage values
+- **Breaking:** `cv()` now returns `Percentage` instead of `double`
+- **Breaking:** `BenchmarkResult.cv` now returns `Percentage`
+- **Breaking:** `BenchmarkResult.improvementVs()` now returns `Percentage`
+- **Breaking:** `BenchmarkComparison.improvementPercent` renamed to `improvement` and returns `Percentage`
+- **Breaking:** `reliabilityFromCV()` now takes `Percentage` instead of `double`
+
+## 2.0.0
+
+- Bump SDK constraint to ^3.5.0
+- Update extra_pedantic to ^5.0.0
+- Add GitHub Actions CI
+
 ## 1.2.0
 
 - Removed GC triggering between variants (can cause more noise than it reduces)

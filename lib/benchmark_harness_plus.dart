@@ -77,6 +77,7 @@ library benchmark_harness_plus;
 
 export 'src/benchmark.dart' show Benchmark, BenchmarkVariant, BenchmarkLogger;
 export 'src/config.dart' show BenchmarkConfig;
+export 'src/percentage.dart' show Percentage;
 export 'src/printer.dart'
     show
         formatComparison,

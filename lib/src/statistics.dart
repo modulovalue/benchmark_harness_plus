@@ -8,6 +8,8 @@ library;
 
 import 'dart:math' as math;
 
+import 'percentage.dart';
+
 /// Calculates the arithmetic mean (average) of a list of samples.
 ///
 /// The mean is sensitive to outliers, so it should be used alongside
@@ -79,13 +81,13 @@ double stdDev(final List<double> samples) {
   return math.sqrt(variance);
 }
 
-/// Calculates the coefficient of variation (CV) as a percentage.
+/// Calculates the coefficient of variation (CV).
 ///
 /// CV normalizes the standard deviation by the mean, allowing comparison
 /// of measurement stability across different scales (e.g., comparing
 /// the reliability of 1us vs 1000us measurements).
 ///
-/// Formula: `(stdDev / mean) * 100`
+/// Formula: `stdDev / mean`
 ///
 /// **Trust thresholds for benchmark data:**
 /// - CV < 10%: Highly reliable, trust the comparisons
@@ -93,16 +95,17 @@ double stdDev(final List<double> samples) {
 /// - CV 20-50%: Directional only, do not trust exact ratios
 /// - CV > 50%: Unreliable, measurement is mostly noise
 ///
-/// Returns 0 if [samples] is empty or mean is zero.
+/// Returns 0% if [samples] is empty or mean is zero.
 ///
 /// Example:
 /// ```dart
 /// final reliability = cv([10.0, 10.1, 9.9, 10.0]); // ~0.8% (excellent)
 /// final reliability2 = cv([5.0, 15.0, 25.0]); // ~66% (unreliable)
 /// ```
-double cv(final List<double> samples) {
+Percentage cv(final List<double> samples) {
   final m = mean(samples);
-  return m > 0 ? (stdDev(samples) / m) * 100 : 0;
+  if (m <= 0) return Percentage.zero;
+  return Percentage.fromRatio(stdDev(samples), m);
 }
 
 /// Returns the minimum value in [samples].
@@ -143,9 +146,13 @@ enum ReliabilityLevel {
 /// Determines the reliability level based on coefficient of variation.
 ///
 /// See [ReliabilityLevel] for threshold descriptions.
-ReliabilityLevel reliabilityFromCV(final double cvPercent) {
-  if (cvPercent < 10) return ReliabilityLevel.excellent;
-  if (cvPercent < 20) return ReliabilityLevel.good;
-  if (cvPercent < 50) return ReliabilityLevel.moderate;
+ReliabilityLevel reliabilityFromCV(final Percentage cv) {
+  if (cv < _cv10Percent) return ReliabilityLevel.excellent;
+  if (cv < _cv20Percent) return ReliabilityLevel.good;
+  if (cv < _cv50Percent) return ReliabilityLevel.moderate;
   return ReliabilityLevel.poor;
 }
+
+const _cv10Percent = Percentage.fromPercent(10);
+const _cv20Percent = Percentage.fromPercent(20);
+const _cv50Percent = Percentage.fromPercent(50);

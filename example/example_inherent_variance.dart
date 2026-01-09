@@ -44,14 +44,14 @@ void main() {
   print('  Samples: $algorithmASamples');
   print('  Minimum: ${min(algorithmASamples).toStringAsFixed(1)} us');
   print('  Median:  ${median(algorithmASamples).toStringAsFixed(1)} us');
-  print('  CV%:     ${cv(algorithmASamples).toStringAsFixed(1)}%');
+  print('  CV%:     ${cv(algorithmASamples).toStringAsPercent()}');
   print('');
 
   print('Algorithm B (consistent performance):');
   print('  Samples: $algorithmBSamples');
   print('  Minimum: ${min(algorithmBSamples).toStringAsFixed(1)} us');
   print('  Median:  ${median(algorithmBSamples).toStringAsFixed(1)} us');
-  print('  CV%:     ${cv(algorithmBSamples).toStringAsFixed(1)}%');
+  print('  CV%:     ${cv(algorithmBSamples).toStringAsPercent()}');
   print('');
 
   print('Analysis:');
@@ -63,9 +63,9 @@ void main() {
   print('  of the time. In production, users experience the slow path.');
   print('');
   print(
-      '  The high CV% of A (${cv(algorithmASamples).toStringAsFixed(0)}%) signals inherent variance.');
+      '  The high CV% of A (${cv(algorithmASamples).toStringAsPercent(0)}) signals inherent variance.');
   print(
-      '  The low CV% of B (${cv(algorithmBSamples).toStringAsFixed(0)}%) confirms consistent behavior.');
+      '  The low CV% of B (${cv(algorithmBSamples).toStringAsPercent(0)}) confirms consistent behavior.');
   print('');
 
   print('When to use minimum vs median:');
@@ -135,7 +135,7 @@ void main() {
   print('  Minimum: ${min(result.samples).toStringAsFixed(2)} us');
   print('  Median:  ${median(result.samples).toStringAsFixed(2)} us');
   print('  Maximum: ${max(result.samples).toStringAsFixed(2)} us');
-  print('  CV%:     ${result.cv.toStringAsFixed(1)}%');
+  print('  CV%:     ${result.cv.toStringAsPercent()}');
   print('');
   print('  The variance here is NOT noise. It reflects real performance');
   print('  differences based on where the target element is located.');

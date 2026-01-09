@@ -1,3 +1,4 @@
+import 'percentage.dart';
 import 'statistics.dart' as stats;
 
 /// Results from benchmarking a single variant.
@@ -55,7 +56,7 @@ class BenchmarkResult {
   /// Smaller values indicate more consistent measurements.
   double get stdDev => stats.stdDev(samples);
 
-  /// The coefficient of variation as a percentage.
+  /// The coefficient of variation.
   ///
   /// Normalizes variance across different scales, allowing comparison
   /// of measurement stability between fast and slow operations.
@@ -67,7 +68,7 @@ class BenchmarkResult {
   /// - > 50%: Unreliable
   ///
   /// See [reliability] for a categorized assessment.
-  double get cv => stats.cv(samples);
+  Percentage get cv => stats.cv(samples);
 
   /// The minimum sample value in microseconds.
   ///
@@ -111,16 +112,16 @@ class BenchmarkResult {
   /// Example:
   /// ```dart
   /// final improvement = optimized.improvementVs(baseline);
-  /// print('Optimized is ${improvement.toStringAsFixed(1)}% faster');
+  /// print('Optimized is ${improvement.toStringAsPercent()} faster');
   /// ```
-  double improvementVs(final BenchmarkResult baseline) {
-    return ((baseline.median - median) / baseline.median) * 100;
+  Percentage improvementVs(final BenchmarkResult baseline) {
+    return Percentage.fromRatio(baseline.median - median, baseline.median);
   }
 
   @override
   String toString() => 'BenchmarkResult($name: '
       'median=${median.toStringAsFixed(2)}us, '
-      'cv=${cv.toStringAsFixed(1)}%)';
+      'cv=${cv.toStringAsPercent()})';
 }
 
 /// Comparison between two benchmark results.
@@ -145,17 +146,18 @@ class BenchmarkComparison {
   /// Values > 1 indicate the test is faster than baseline.
   double get speedup => test.speedupVs(baseline);
 
-  /// Percentage improvement ((baseline - test) / baseline * 100).
+  /// Percentage improvement ((baseline - test) / baseline).
   ///
   /// Positive values indicate the test is faster.
-  double get improvementPercent => test.improvementVs(baseline);
+  Percentage get improvement => test.improvementVs(baseline);
 
   /// Whether the comparison is statistically meaningful.
   ///
   /// Returns true if both measurements have acceptable reliability
   /// (CV < 20%). When false, treat comparisons as directional only.
   bool get isReliable {
-    return baseline.cv < 20 && test.cv < 20;
+    const threshold = Percentage.fromPercent(20);
+    return baseline.cv < threshold && test.cv < threshold;
   }
 
   /// Combined reliability level (worst of the two measurements).

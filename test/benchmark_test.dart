@@ -80,7 +80,7 @@ void main() {
       expect(result.min, equals(9.0));
       expect(result.max, equals(11.0));
       expect(result.stdDev, greaterThan(0.0));
-      expect(result.cv, greaterThan(0.0));
+      expect(result.cv.asRatio, greaterThan(0.0));
     });
 
     test('speedupVs calculates ratio correctly', () {
@@ -98,7 +98,10 @@ void main() {
           BenchmarkResult(name: 'baseline', samples: [100.0, 100.0]);
       final improved = BenchmarkResult(name: 'improved', samples: [50.0, 50.0]);
 
-      expect(improved.improvementVs(baseline), equals(50.0)); // 50% faster
+      expect(
+        improved.improvementVs(baseline).asPercent,
+        equals(50.0),
+      ); // 50% faster
     });
 
     test('reliability reflects CV thresholds', () {
@@ -142,7 +145,7 @@ void main() {
     test('calculates improvement percentage', () {
       final comparison =
           BenchmarkComparison(baseline: baselineResult, test: testResult);
-      expect(comparison.improvementPercent, equals(50.0));
+      expect(comparison.improvement.asPercent, equals(50.0));
     });
 
     test('isReliable checks both CVs', () {

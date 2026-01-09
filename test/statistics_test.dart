@@ -101,31 +101,31 @@ void main() {
     test('calculates coefficient of variation as percentage', () {
       // If stddev = 1 and mean = 10, CV = 10%
       final samples = [9.0, 10.0, 11.0]; // stddev=1, mean=10
-      expect(cv(samples), closeTo(10.0, 0.1));
+      expect(cv(samples).asPercent, closeTo(10.0, 0.1));
     });
 
     test('returns 0 for empty list', () {
-      expect(cv([]), equals(0.0));
+      expect(cv([]).asRatio, equals(0.0));
     });
 
     test('returns 0 for identical values', () {
-      expect(cv([5.0, 5.0, 5.0, 5.0]), equals(0.0));
+      expect(cv([5.0, 5.0, 5.0, 5.0]).asRatio, equals(0.0));
     });
 
     test('returns 0 when mean is zero', () {
-      expect(cv([-1.0, 0.0, 1.0]), equals(0.0));
+      expect(cv([-1.0, 0.0, 1.0]).asRatio, equals(0.0));
     });
 
     test('handles high variance', () {
       // Very spread out data should have high CV
       final samples = [1.0, 50.0, 100.0];
-      expect(cv(samples), greaterThan(50.0));
+      expect(cv(samples).asPercent, greaterThan(50.0));
     });
 
     test('handles low variance', () {
       // Very consistent data should have low CV
       final samples = [100.0, 100.1, 99.9, 100.0, 100.05];
-      expect(cv(samples), lessThan(1.0));
+      expect(cv(samples).asPercent, lessThan(1.0));
     });
   });
 
@@ -167,27 +167,63 @@ void main() {
 
   group('reliabilityFromCV', () {
     test('returns excellent for CV < 10%', () {
-      expect(reliabilityFromCV(0.0), equals(ReliabilityLevel.excellent));
-      expect(reliabilityFromCV(5.0), equals(ReliabilityLevel.excellent));
-      expect(reliabilityFromCV(9.9), equals(ReliabilityLevel.excellent));
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(0.0)),
+        equals(ReliabilityLevel.excellent),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(5.0)),
+        equals(ReliabilityLevel.excellent),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(9.9)),
+        equals(ReliabilityLevel.excellent),
+      );
     });
 
     test('returns good for CV 10-20%', () {
-      expect(reliabilityFromCV(10.0), equals(ReliabilityLevel.good));
-      expect(reliabilityFromCV(15.0), equals(ReliabilityLevel.good));
-      expect(reliabilityFromCV(19.9), equals(ReliabilityLevel.good));
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(10.0)),
+        equals(ReliabilityLevel.good),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(15.0)),
+        equals(ReliabilityLevel.good),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(19.9)),
+        equals(ReliabilityLevel.good),
+      );
     });
 
     test('returns moderate for CV 20-50%', () {
-      expect(reliabilityFromCV(20.0), equals(ReliabilityLevel.moderate));
-      expect(reliabilityFromCV(35.0), equals(ReliabilityLevel.moderate));
-      expect(reliabilityFromCV(49.9), equals(ReliabilityLevel.moderate));
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(20.0)),
+        equals(ReliabilityLevel.moderate),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(35.0)),
+        equals(ReliabilityLevel.moderate),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(49.9)),
+        equals(ReliabilityLevel.moderate),
+      );
     });
 
     test('returns poor for CV >= 50%', () {
-      expect(reliabilityFromCV(50.0), equals(ReliabilityLevel.poor));
-      expect(reliabilityFromCV(75.0), equals(ReliabilityLevel.poor));
-      expect(reliabilityFromCV(100.0), equals(ReliabilityLevel.poor));
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(50.0)),
+        equals(ReliabilityLevel.poor),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(75.0)),
+        equals(ReliabilityLevel.poor),
+      );
+      expect(
+        reliabilityFromCV(const Percentage.fromPercent(100.0)),
+        equals(ReliabilityLevel.poor),
+      );
     });
   });
 

@@ -66,7 +66,7 @@ String formatResults(
       '${r.mean.toStringAsFixed(2).padLeft(10)} | '
       '${r.min.toStringAsFixed(2).padLeft(10)} | '
       '${r.stdDev.toStringAsFixed(2).padLeft(8)} | '
-      '${r.cv.toStringAsFixed(1).padLeft(6)} | '
+      '${r.cv.asPercent.toStringAsFixed(1).padLeft(6)} | '
       '${ratioStr.padLeft(8)}',
     );
   }
@@ -122,7 +122,7 @@ String formatDetailedResult(final BenchmarkResult result) {
   buffer.writeln('  Mean:    ${result.mean.toStringAsFixed(2)} us/op');
   buffer.writeln('  Fastest: ${result.min.toStringAsFixed(2)} us/op');
   buffer.writeln('  Stddev:  ${result.stdDev.toStringAsFixed(2)} us');
-  buffer.writeln('  CV%:     ${result.cv.toStringAsFixed(1)}%');
+  buffer.writeln('  CV%:     ${result.cv.toStringAsPercent()}');
   buffer.writeln(
     '  Range:   ${result.min.toStringAsFixed(2)} - ${result.max.toStringAsFixed(2)} us',
   );
@@ -170,11 +170,13 @@ String formatComparison(final BenchmarkComparison comparison) {
     );
   }
 
-  final improvement = comparison.improvementPercent;
-  if (improvement >= 0) {
-    buffer.writeln('  Improvement: ${improvement.toStringAsFixed(1)}%');
+  final improvement = comparison.improvement;
+  if (improvement.asRatio >= 0) {
+    buffer.writeln('  Improvement: ${improvement.toStringAsPercent()}');
   } else {
-    buffer.writeln('  Regression:  ${(-improvement).toStringAsFixed(1)}%');
+    buffer.writeln(
+      '  Regression:  ${(-improvement.asPercent).toStringAsFixed(1)}%',
+    );
   }
 
   buffer.writeln('  Reliable:    ${comparison.isReliable ? 'yes' : 'no'}');
@@ -217,7 +219,7 @@ String formatResultsAsCsv(final List<BenchmarkResult> results) {
     buffer.write('${r.median},');
     buffer.write('${r.mean},');
     buffer.write('${r.stdDev},');
-    buffer.write('${r.cv},');
+    buffer.write('${r.cv.asRatio},');
     buffer.write('${r.min},');
     buffer.write('${r.max}');
     for (final sample in r.samples) {
@@ -241,7 +243,7 @@ bool printReliabilityWarning(final List<BenchmarkResult> results) {
     print('\nWarning: The following measurements have CV% > 50% '
         'and may be unreliable:');
     for (final r in poorResults) {
-      print('  - ${r.name} (CV: ${r.cv.toStringAsFixed(1)}%)');
+      print('  - ${r.name} (CV: ${r.cv.toStringAsPercent()})');
     }
     print('Consider increasing iterations or investigating system noise.\n');
     return true;
@@ -255,7 +257,7 @@ bool printReliabilityWarning(final List<BenchmarkResult> results) {
     print('\nNote: The following measurements have CV% 20-50% '
         '(directional only):');
     for (final r in moderateResults) {
-      print('  - ${r.name} (CV: ${r.cv.toStringAsFixed(1)}%)');
+      print('  - ${r.name} (CV: ${r.cv.toStringAsPercent()})');
     }
     print('');
     return true;
