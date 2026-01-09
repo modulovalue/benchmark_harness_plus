@@ -1,3 +1,7 @@
+## 3.0.1
+
+- Fix typo in README
+
 ## 3.0.0
 
 - **Breaking:** Added `Percentage` type for type-safe percentage values
